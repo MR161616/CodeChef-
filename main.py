@@ -6,11 +6,6 @@ import random
 
 app = FastAPI(title="Raja-Mantri-Chor-Sipahi Game Backend")
 
-# ---------------------------------------------------------
-# DATA MODELS (REQUEST + RESPONSE)
-# ---------------------------------------------------------
-
-# -------- REQUEST MODELS --------
 class CreateRoomRequest(BaseModel):
     roomName: str
     playerName: str
@@ -28,7 +23,6 @@ class GuessRequest(BaseModel):
     guessedPlayerId: str
 
 
-# -------- RESPONSE MODELS --------
 class CreateRoomResponse(BaseModel):
     roomId: str
     playerId: str
@@ -69,9 +63,6 @@ class LeaderboardResponse(BaseModel):
     leaderboard: List[Dict[str, str]]
 
 
-# ---------------------------------------------------------
-# INTERNAL GAME STRUCTURES
-# ---------------------------------------------------------
 
 class Player:
     def __init__(self, name: str):
@@ -94,10 +85,8 @@ class Room:
         self.round_number: int = 0
 
 
-# In-memory storage
 rooms: Dict[str, Room] = {}
 
-# Game points
 POINTS = {
     "Raja": 1000,
     "Mantri": 800,
@@ -105,9 +94,6 @@ POINTS = {
     "Chor": 0
 }
 
-# ---------------------------------------------------------
-# ENDPOINT 1 — CREATE ROOM
-# ---------------------------------------------------------
 
 @app.post("/room/create", response_model=CreateRoomResponse)
 def create_room(data: CreateRoomRequest):
@@ -122,9 +108,6 @@ def create_room(data: CreateRoomRequest):
     }
 
 
-# ---------------------------------------------------------
-# ENDPOINT 2 — JOIN ROOM
-# ---------------------------------------------------------
 
 @app.post("/room/join", response_model=JoinRoomResponse)
 def join_room(data: JoinRoomRequest):
@@ -150,9 +133,6 @@ def join_room(data: JoinRoomRequest):
     }
 
 
-# ---------------------------------------------------------
-# ENDPOINT 3 — JOIN MULTIPLE PLAYERS
-# ---------------------------------------------------------
 
 @app.post("/room/join-multiple", response_model=JoinMultipleResponse)
 def join_multiple_players(data: JoinMultipleRequest):
@@ -180,9 +160,6 @@ def join_multiple_players(data: JoinMultipleRequest):
     }
 
 
-# ---------------------------------------------------------
-# ENDPOINT 4 — GET PLAYERS
-# ---------------------------------------------------------
 
 @app.get("/room/players/{roomId}", response_model=PlayerListResponse)
 def get_players(roomId: str):
@@ -198,9 +175,6 @@ def get_players(roomId: str):
     }
 
 
-# ---------------------------------------------------------
-# ENDPOINT 5 — ASSIGN ROLES
-# ---------------------------------------------------------
 
 @app.post("/room/assign/{roomId}", response_model=AssignRolesResponse)
 def assign_roles(roomId: str):
@@ -228,9 +202,6 @@ def assign_roles(roomId: str):
     return {"message": f"Roles assigned for round {room.round_number}"}
 
 
-# ---------------------------------------------------------
-# ENDPOINT 6 — VIEW MY ROLE
-# ---------------------------------------------------------
 
 @app.get("/role/me/{roomId}/{playerId}", response_model=RoleResponse)
 def view_role(roomId: str, playerId: str):
@@ -244,9 +215,6 @@ def view_role(roomId: str, playerId: str):
     raise HTTPException(404, "Player not found")
 
 
-# ---------------------------------------------------------
-# ENDPOINT 7 — MANTRI GUESS
-# ---------------------------------------------------------
 
 @app.post("/guess/{roomId}", response_model=GuessResponse)
 def submit_guess(roomId: str, data: GuessRequest):
@@ -285,9 +253,6 @@ def submit_guess(roomId: str, data: GuessRequest):
 
 
 
-# ---------------------------------------------------------
-# ENDPOINT 8 — RESULT
-# ---------------------------------------------------------
 
 @app.get("/result/{roomId}", response_model=ResultResponse)
 def result(roomId: str):
@@ -320,9 +285,6 @@ def result(roomId: str):
 
 
 
-# ---------------------------------------------------------
-# ENDPOINT 9 — LEADERBOARD
-# ---------------------------------------------------------
 
 @app.get("/leaderboard/{roomId}", response_model=LeaderboardResponse)
 def leaderboard(roomId: str):
