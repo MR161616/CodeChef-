@@ -145,3 +145,13 @@ POST /guess/{roomId} – Mantri submits guess
 GET /result/{roomId} – View round result
 
 GET /leaderboard/{roomId} – View cumulative leaderboard
+
+
+
+
+git add file_ka_naam_with_extension
+git status
+git commit -m "koi bhi message"
+git status
+git status
+git push 
