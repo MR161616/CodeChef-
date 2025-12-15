@@ -10,9 +10,6 @@ class CreateRoomRequest(BaseModel):
     roomName: str
     playerName: str
 
-class JoinRoomRequest(BaseModel):
-    roomId: str
-    playerName: str
 
 class JoinMultipleRequest(BaseModel):
     roomId: str
@@ -28,10 +25,6 @@ class CreateRoomResponse(BaseModel):
     playerId: str
     message: str
 
-class JoinRoomResponse(BaseModel):
-    playerId: str
-    joined: bool
-    waitlisted: bool
 
 class JoinMultipleResponse(BaseModel):
     roomId: str
@@ -108,29 +101,6 @@ def create_room(data: CreateRoomRequest):
     }
 
 
-
-@app.post("/room/join", response_model=JoinRoomResponse)
-def join_room(data: JoinRoomRequest):
-    if data.roomId not in rooms:
-        raise HTTPException(404, "Room not found")
-
-    room = rooms[data.roomId]
-    new_player = Player(data.playerName)
-
-    if len(room.players) < 4:
-        room.players.append(new_player)
-        joined = True
-        waitlisted = False
-    else:
-        room.waitlist.append(new_player)
-        joined = False
-        waitlisted = True
-
-    return {
-        "playerId": new_player.id,
-        "joined": joined,
-        "waitlisted": waitlisted
-    }
 
 
 
