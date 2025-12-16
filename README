@@ -1,6 +1,6 @@
 Raja–Mantri–Chor–Sipahi – Backend Game API
-Overview:
 
+Overview:
 This project is a backend implementation of the classic Indian game Raja–Mantri–Chor–Sipahi.
 It is built using FastAPI and can be tested entirely using Swagger UI (no frontend required).
 
