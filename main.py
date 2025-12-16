@@ -237,7 +237,6 @@ def result(roomId: str):
     if not room.guess_submitted:
         raise HTTPException(400, "Mantri has not guessed yet")
 
-    # Safety check: ensure all roles and scores exist
     safe_players = []
     for p in room.players:
         safe_players.append({
