@@ -1,5 +1,5 @@
 Raja–Mantri–Chor–Sipahi – Backend Game API
-Overview
+Overview:
 
 This project is a backend implementation of the classic Indian game Raja–Mantri–Chor–Sipahi.
 It is built using FastAPI and can be tested entirely using Swagger UI (no frontend required).
@@ -7,151 +7,88 @@ It is built using FastAPI and can be tested entirely using Swagger UI (no fronte
 Four players join a room. The backend assigns roles randomly. The Mantri must guess the Chor.
 Points are awarded based on whether the guess is correct or wrong.
 
-Tech Stack
-
+Tech Stack:
 Python 3
-
 FastAPI
-
 Uvicorn
-
 Pydantic
 
-Features
-
+Features:
 Room creation and management
-
 Player joining (single and multiple)
-
 Automatic role assignment
-
 Private role visibility (each player sees only their own role)
-
 Guess submission by Mantri
-
 Correct and wrong guess scoring
-
 Round result display
-
 Cumulative leaderboard
 
-Installation Steps
-
+Installation Steps:
 Create a virtual environment
-
 python -m venv venv
-
-
 Activate the virtual environment
 
 macOS / Linux:
-
 source venv/bin/activate
 
-
 Windows:
-
 venv\Scripts\activate
 
-
 Install dependencies
-
 pip install fastapi uvicorn python-multipart
-
 Running the Server
-
 Run the backend server using:
 
 python -m uvicorn main:app --reload --port 8004
 
-
 Open the game interface in browser:
-
 http://127.0.0.1:8004/docs
 
 Game Roles
-
 Raja – Observer
-
 Mantri – Must guess the Chor
-
 Chor – Avoid getting caught
-
 Sipahi – Waits for result
 
 Point System
 Default Points
 
 Raja: 1000
-
 Mantri: 800
-
 Sipahi: 500
-
 Chor: 0
 
 Case 1: Mantri Guesses Correctly
 
 Raja → 1000 points
-
 Mantri → 800 points
-
 Sipahi → 500 points
-
 Chor → 0 points
 
 Case 2: Mantri Guesses Wrong
-
 Raja → 1000 points
-
 Sipahi → 500 points
-
 Mantri → 0 points
-
 Chor → 800 points (steals Mantri’s points)
 
 Game Flow
-
 Create a room
-
 Add players (total 4 players)
-
 Assign roles
-
 Each player checks their role
-
 Mantri guesses the Chor
-
 View round result
-
 View leaderboard
 
 API Endpoints
-
 POST /room/create – Create room and add first player
-
 POST /room/join – Join room (single player)
-
 POST /room/join-multiple – Join multiple players at once
-
 GET /room/players/{roomId} – View players in room
-
 POST /room/assign/{roomId} – Assign roles
-
 GET /role/me/{roomId}/{playerId} – View own role
-
 POST /guess/{roomId} – Mantri submits guess
-
 GET /result/{roomId} – View round result
-
 GET /leaderboard/{roomId} – View cumulative leaderboard
 
 
-
-
-git add file_ka_naam_with_extension
-git status
-git commit -m "koi bhi message"
-git status
-git status
-git push 
